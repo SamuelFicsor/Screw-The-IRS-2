@@ -20,5 +20,5 @@ public abstract class Card
 		
 		public abstract void play(Player p);
 		
-		public abstract void display();
+		public abstract String display();
 	}

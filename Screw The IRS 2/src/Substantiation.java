@@ -1,10 +1,10 @@
 
-public class Screw extends Card
+public class Substantiation extends Front
 	{
 
-	public Screw(String t)
+	public Substantiation(String t, String k, int v)
 		{
-			super(t);
+			super(t, k, v);
 			// TODO Auto-generated constructor stub
 		}
 
@@ -14,12 +14,5 @@ public class Screw extends Card
 			// TODO Auto-generated method stub
 			
 		}
-	
-	@Override
-	public String display()
-		{
-			return type;
-		}
-
 
 	}

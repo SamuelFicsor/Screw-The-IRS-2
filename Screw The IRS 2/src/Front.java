@@ -1,8 +1,8 @@
 
-public class Front extends Card
+public abstract class Front extends Card
 	{
 		private String kind;
-		private int value;
+		protected int value;
 		
 		public Front(String t, String k, int v)
 			{
@@ -31,26 +31,13 @@ public class Front extends Card
 				this.value = value;
 			}
 
+		
+		public abstract void play(Player p);
+		
 		@Override
-		public void play(Player p)
+		public String display()
 			{
-				if(type.equals("Deduction"))
-					{
-						if(p.getTotal() + value < p.getSalary())
-						p.setTotal(p.getTotal() + value);
-						
-						else
-							{
-								System.out.println("You can't deduct more than your salary!");
-							}
-					}
-				
-			}
-
-		@Override
-		public void display()
-			{
-				System.out.println(type + " " + kind + " " + value);
+				return type + " " + kind + " " + value;
 
 			}
 

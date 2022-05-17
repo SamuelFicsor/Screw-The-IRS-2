@@ -26,10 +26,9 @@ public class Salary extends Card
 				
 			}
 		@Override
-		public void display()
+		public String display()
 			{
-				System.out.println(type + " " + value);
+				return type + " " + value;
 
 			}
-
 	}
