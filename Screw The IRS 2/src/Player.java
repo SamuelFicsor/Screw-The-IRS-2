@@ -123,16 +123,62 @@ public class Player
 				Deck.discard.add(0,c);
 			}
 		
-		public boolean[] displayOptions(Player p)
+		public static void displayOptions(Player p)
 			{
 				boolean frontSalary = false;
 				boolean handSalary = false;
 				boolean audit = p.isAudited();
+				boolean hasAudit = false;
+				boolean canDeduct = false;
+				boolean backTaxes = false;
+				boolean screwCard = false;
 				
+						if(p.getSalary() != 0)
+							{
+								frontSalary = true;
+								if(p.getTotal() < p.getSalary() && !audit) {
+									canDeduct = true;
+								}
+								else if(p.getTotal() == p.getSalary() && !audit) {
+									screwCard = true;
+								}
+							}						
+
+				else
+					{
+						for(Card c: p.getHand())
+							if(c.getType().equals("Salary"))
+								handSalary = true;
+					}
 				
-				boolean[] options = {};
-				return options;
+				if(audit) {
+					for(Card c: p.getHand())
+						if(c.getType().equals("Back Taxes"))
+							backTaxes = true;
+				}
+				
+				for(Card c: p.getHand())
+						if(c.getType().equals("Audit"))
+							hasAudit = true;
+
+				//boolean[] options = {frontSalary, handSalary, audit, hasAudit, canDeduct, backTaxes, screwCard};
+				
+				if()
 			}
+		
+		/*public static void displayMenu(boolean[] b)
+			{
+				ArrayList<Boolean> menus = new ArrayList<Boolean>();
+				
+				for(boolean i : b)
+					if(i == true)
+						menus.add(i);
+				
+				for(int i = 0; i < menus.size(); i++)
+					{
+						
+					}
+			}*/
 		
 		public static void turn(Player p)
 			{
@@ -157,9 +203,5 @@ public class Player
 						System.out.println("You can't do that! You broke the game! I don't want to code this right now so I'll fix it later.");
 					}
 				
-				if(p.getSalary() == 0)
-					{
-						System.out.println("1) Display your hand\n2) Play salary\n3)");
-					}
 			}
 	}
