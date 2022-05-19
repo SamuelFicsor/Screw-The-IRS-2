@@ -1,7 +1,7 @@
 
 public abstract class Front extends Card
 	{
-		private String kind;
+		protected String kind;
 		protected int value;
 		
 		public Front(String t, String k, int v)
@@ -38,7 +38,6 @@ public abstract class Front extends Card
 		public String display()
 			{
 				return type + " " + kind + " " + value;
-
 			}
 
 	}

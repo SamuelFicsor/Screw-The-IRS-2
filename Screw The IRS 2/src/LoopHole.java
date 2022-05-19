@@ -12,7 +12,13 @@ public class LoopHole extends Card
 	public void play(Player p)
 		{
 			// TODO Auto-generated method stub
-			
+			for(Card c: p.getFront())
+				{
+				if(c.getType().equals("Audit"))
+					p.discard(c);
+				}
+
+			p.setAudited(false);
 		}
 	
 	@Override
@@ -20,6 +26,5 @@ public class LoopHole extends Card
 		{
 			return type;
 		}
-
 
 	}

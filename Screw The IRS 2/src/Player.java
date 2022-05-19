@@ -125,22 +125,20 @@ public class Player
 		
 		public static void displayOptions(Player p)
 			{
-				boolean frontSalary = false;
-				boolean handSalary = false;
-				boolean audit = p.isAudited();
-				boolean hasAudit = false;
-				boolean canDeduct = false;
-				boolean backTaxes = false;
-				boolean screwCard = false;
-				
+				Option viewHand = new Option(true, "View your hand");
+				Option handSalary = new Option(false, "Play a salary card");
+				Option hasAudit = new Option(false, "Play an audit card");
+				Option canDeduct = new Option(false, "Play a deduction card");
+				Option backTaxes = new Option(false, "Play a back taxes card");
+				Option screwCard = new Option(false, "End the game!");
+
 						if(p.getSalary() != 0)
 							{
-								frontSalary = true;
-								if(p.getTotal() < p.getSalary() && !audit) {
-									canDeduct = true;
+								if(p.getTotal() < p.getSalary() && !p.isAudited()) {
+									canDeduct.setParameter(true);
 								}
-								else if(p.getTotal() == p.getSalary() && !audit) {
-									screwCard = true;
+								else if(p.getTotal() == p.getSalary() && !p.isAudited()) {
+									screwCard.setParameter(true);
 								}
 							}						
 
@@ -148,37 +146,35 @@ public class Player
 					{
 						for(Card c: p.getHand())
 							if(c.getType().equals("Salary"))
-								handSalary = true;
+								handSalary.setParameter(true);
 					}
 				
-				if(audit) {
+				if(p.isAudited()) {
 					for(Card c: p.getHand())
 						if(c.getType().equals("Back Taxes"))
-							backTaxes = true;
+							backTaxes.setParameter(true);
 				}
 				
 				for(Card c: p.getHand())
 						if(c.getType().equals("Audit"))
-							hasAudit = true;
+							hasAudit.setParameter(true);
 
-				//boolean[] options = {frontSalary, handSalary, audit, hasAudit, canDeduct, backTaxes, screwCard};
+				Option[] optionArr = {viewHand, handSalary, hasAudit, canDeduct, backTaxes, screwCard};
+				ArrayList<Option> optionList = new ArrayList<Option>();
 				
-				if()
-			}
-		
-		/*public static void displayMenu(boolean[] b)
-			{
-				ArrayList<Boolean> menus = new ArrayList<Boolean>();
+				for(Option o : optionArr)
+					if(o.isParameter())
+						optionList.add(o);
 				
-				for(boolean i : b)
-					if(i == true)
-						menus.add(i);
+				int counter = 1;
 				
-				for(int i = 0; i < menus.size(); i++)
+				for(Option o : optionList)
 					{
-						
+						System.out.println(o.getDescription());
+						counter++;
 					}
-			}*/
+						
+			}
 		
 		public static void turn(Player p)
 			{
@@ -202,6 +198,8 @@ public class Player
 					{
 						System.out.println("You can't do that! You broke the game! I don't want to code this right now so I'll fix it later.");
 					}
+				
+				displayOptions(p);
 				
 			}
 	}

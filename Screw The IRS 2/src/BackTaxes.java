@@ -10,7 +10,13 @@ public class BackTaxes extends Card
 		public void play(Player p)
 			{
 				// TODO Auto-generated method stub
-				
+				for(Card c: p.getFront())
+					{
+					if(c.getType().equals("Audit") || (c.getType().equals("Deduction") && !((Deduction) c).isSubstantiated()))
+						p.discard(c);
+					}
+
+				p.setAudited(false);
 			}
 		
 		@Override

@@ -28,7 +28,6 @@ public class Deduction extends Front
 				{
 				p.setTotal(p.getTotal() + value);	
 				}
-			
 			else
 				{
 				System.out.println("You can't deduct more than your salary!");

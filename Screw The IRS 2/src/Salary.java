@@ -23,7 +23,7 @@ public class Salary extends Card
 		public void play(Player p)
 			{
 				// TODO Auto-generated method stub
-				
+				p.setSalary(value);
 			}
 		@Override
 		public String display()
