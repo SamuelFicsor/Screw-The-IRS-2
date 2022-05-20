@@ -7,8 +7,11 @@ public class Player
 		private int total;
 		private int salary;
 		private boolean audited;
-		private ArrayList<Card> hand;
-		private ArrayList<Card> front;
+		private static ArrayList<Card> hand;
+		private static ArrayList<Card> front;
+		private static ArrayList<Option> optionList;
+		private static Scanner inputScanner = new Scanner(System.in);
+		private static int input;
 		
 		public Player(String n, int t, int s, boolean a, ArrayList<Card> h, ArrayList<Card> f)
 		{
@@ -102,18 +105,18 @@ public class Player
 				hand.remove(i);
 			}
 		
-		public void displayHand(ArrayList<Card> hand)
+		public static void displayCards(ArrayList<Card> cards)
 			{
 				int counter = 1;
 				
-				for(Card c : hand)
+				for(Card c : cards)
 					{
 						System.out.println(counter + c.display());
 						counter++;
 					}
 			}
 		
-		public void discard(Card c)
+		public static void discard(Card c)
 			{
 				Deck.discard.add(c);
 			}
@@ -125,12 +128,13 @@ public class Player
 		
 		public static void displayOptions(Player p)
 			{
-				Option viewHand = new Option(true, "View your hand");
-				Option handSalary = new Option(false, "Play a salary card");
-				Option hasAudit = new Option(false, "Play an audit card");
-				Option canDeduct = new Option(false, "Play a deduction card");
-				Option backTaxes = new Option(false, "Play a back taxes card");
-				Option screwCard = new Option(false, "End the game!");
+				Option viewHand = new Option(true, "View your hand", 1);
+				Option viewFront = new Option(true, "View your front cards", 2);
+				Option handSalary = new Option(false, "Play a salary card", 3);
+				Option hasAudit = new Option(false, "Play an audit card", 4);
+				Option canDeduct = new Option(false, "Play a deduction card", 5);
+				Option backTaxes = new Option(false, "Play a back taxes card", 6);
+				Option screwCard = new Option(false, "End the game!", 7);
 
 						if(p.getSalary() != 0)
 							{
@@ -159,8 +163,8 @@ public class Player
 						if(c.getType().equals("Audit"))
 							hasAudit.setParameter(true);
 
-				Option[] optionArr = {viewHand, handSalary, hasAudit, canDeduct, backTaxes, screwCard};
-				ArrayList<Option> optionList = new ArrayList<Option>();
+				Option[] optionArr = {viewHand, viewFront, handSalary, hasAudit, canDeduct, backTaxes, screwCard};
+				optionList = new ArrayList<Option>();
 				
 				for(Option o : optionArr)
 					if(o.isParameter())
@@ -170,17 +174,76 @@ public class Player
 				
 				for(Option o : optionList)
 					{
-						System.out.println(o.getDescription());
+						System.out.println(counter + ") " + o.getDescription());
 						counter++;
 					}
-						
+				
+				input = inputScanner.nextInt();
+				
+				switch(optionList.get(input-1).getIdNum())
+				{
+					case 1: displayCards(hand);
+					case 2: displayCards(front);
+					case 3:
+							{
+							for(Card c: p.getHand())
+								if(c.getType().equals("Salary"))
+								{
+									c.play(p);
+									discard(c);
+								}		
+							break;
+							}
+					case 4:
+							{
+							for(Card c: p.getHand())
+								if(c.getType().equals("Audit"))
+								{
+									c.play(p);
+									discard(c);
+								}	
+							break;
+							}
+					case 5:
+							{
+							for(Card c: p.getHand())
+								if(c.getType().equals("Deduction"))
+								{
+									c.play(p);
+									discard(c);
+								}
+							break;
+							}
+					case 6:
+							{
+							for(Card c: p.getHand())
+								if(c.getType().equals("Back Taxes"))
+								{
+									c.play(p);
+									discard(c);
+								}
+							break;
+							}
+					case 7:
+							{
+							for(Card c: p.getHand())
+								if(c.getType().equals("Screw"))
+								{
+									c.play(p);
+									discard(c);
+								}
+							break;
+							}
+					default:
+							{
+								System.out.println("Game broken :(");
+							}
+					
+				}
 			}
 		
 		public static void turn(Player p)
-			{
-				Scanner inputScanner = new Scanner(System.in);
-				int input;
-				
+			{				
 				System.out.println("Welcome " + p.getName() + "! It's your turn!\n1) Draw from the deck\n2) Draw from the discard pile - " 
 				+ Deck.discard.get(Deck.discard.size()-1).display());
 				
