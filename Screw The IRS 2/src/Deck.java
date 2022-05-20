@@ -127,5 +127,8 @@ public class Deck
 				p.draw(deck.get(0));
 				deck.remove(0);
 			}
+		
+		discard.add(deck.get(0));
+		deck.remove(0);
 		}
 	}

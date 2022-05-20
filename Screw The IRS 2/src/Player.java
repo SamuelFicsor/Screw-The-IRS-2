@@ -130,11 +130,13 @@ public class Player
 			{
 				Option viewHand = new Option(true, "View your hand", 1);
 				Option viewFront = new Option(true, "View your front cards", 2);
-				Option handSalary = new Option(false, "Play a salary card", 3);
-				Option hasAudit = new Option(false, "Play an audit card", 4);
-				Option canDeduct = new Option(false, "Play a deduction card", 5);
-				Option backTaxes = new Option(false, "Play a back taxes card", 6);
-				Option screwCard = new Option(false, "End the game!", 7);
+				Option discard = new Option(true, "Discard", 3);
+				Option handSalary = new Option(false, "Play a salary card", 4);
+				Option hasAudit = new Option(false, "Play an audit card", 5);
+				Option canDeduct = new Option(false, "Play a deduction card", 6);
+				Option backTaxes = new Option(false, "Play a back taxes card", 7);
+				Option screwCard = new Option(false, "End the game!", 8);
+				
 
 						if(p.getSalary() != 0)
 							{
@@ -186,6 +188,14 @@ public class Player
 					case 2: displayCards(front);
 					case 3:
 							{
+								System.out.println("Which card would you like to discard?");
+								p.displayCards(hand);
+								input = inputScanner.nextInt();
+								Deck.discard.add(hand.get(input-1));
+								p.discard(input-1);
+							}
+					case 4:
+							{
 							for(Card c: p.getHand())
 								if(c.getType().equals("Salary"))
 								{
@@ -194,7 +204,7 @@ public class Player
 								}		
 							break;
 							}
-					case 4:
+					case 5:
 							{
 							for(Card c: p.getHand())
 								if(c.getType().equals("Audit"))
@@ -204,7 +214,7 @@ public class Player
 								}	
 							break;
 							}
-					case 5:
+					case 6:
 							{
 							for(Card c: p.getHand())
 								if(c.getType().equals("Deduction"))
@@ -214,7 +224,7 @@ public class Player
 								}
 							break;
 							}
-					case 6:
+					case 7:
 							{
 							for(Card c: p.getHand())
 								if(c.getType().equals("Back Taxes"))
@@ -224,7 +234,7 @@ public class Player
 								}
 							break;
 							}
-					case 7:
+					case 8:
 							{
 							for(Card c: p.getHand())
 								if(c.getType().equals("Screw"))
@@ -238,16 +248,18 @@ public class Player
 							{
 								System.out.println("Game broken :(");
 							}
-					
 				}
 			}
 		
 		public static void turn(Player p)
 			{				
-				System.out.println("Welcome " + p.getName() + "! It's your turn!\n1) Draw from the deck\n2) Draw from the discard pile - " 
-				+ Deck.discard.get(Deck.discard.size()-1).display());
+				System.out.println("Welcome " + p.getName() + "! It's your turn!\n1) Draw from the deck");
+				
+				if(Deck.discard.size() > 0)
+					System.out.println("2) Draw from the discard pile - " + Deck.discard.get(Deck.discard.size()-1).display());
 				
 				input = inputScanner.nextInt();
+				System.out.println();
 				
 				if(input == 1)
 					{

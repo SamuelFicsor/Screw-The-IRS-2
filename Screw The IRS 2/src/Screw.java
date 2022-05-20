@@ -13,7 +13,7 @@ public class Screw extends Card
 		{
 			// TODO Auto-generated method stub
 			System.out.println(p.getName() + " won the game!");
-			System.exit(0);
+			Driver.stillPlaying = false;
 		}
 	
 	@Override
