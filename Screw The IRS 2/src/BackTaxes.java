@@ -13,7 +13,7 @@ public class BackTaxes extends Card
 				for(Card c: p.getFront())
 					{
 					if(c.getType().equals("Audit") || (c.getType().equals("Deduction") && !((Deduction) c).isSubstantiated()))
-						p.discard(c);
+						p.discardBottom(c);
 					}
 
 				p.setAudited(false);

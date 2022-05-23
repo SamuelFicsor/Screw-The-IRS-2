@@ -251,6 +251,38 @@ public class Player
 				}
 			}
 		
+		public static void displayOptionsAudit(Player p)
+			{
+				Option substantiate = new Option(false, "Play your substantiation cards", 1);
+				Option loopHole = new Option(false, "Play your loop hole card", 2);
+				
+				for(Card c : p.getHand())
+					{
+						if(c.getType().equals("Substantiation"))
+							substantiate.setParameter(true);
+						else if(c.getType().equals("Loop Hole"))
+							loopHole.setParameter(true);
+					}
+				
+				Option[] optionArr = {substantiate, loopHole};
+				boolean isParam = false;
+				
+				int counter = 1;
+				
+				for(Option o : optionArr)
+					{
+						if(o.isParameter())
+							{
+								isParam = true;
+								System.out.println(counter + o.getDescription());	
+								counter++;
+							}
+					}
+				
+				if(!isParam)
+					System.out.println("You have been audited and you can't fix it.\nSorry! Pay your taxes next time...\ncriminal scum");
+			}
+		
 		public static void turn(Player p)
 			{				
 				System.out.println("Welcome " + p.getName() + "! It's your turn!\n1) Draw from the deck");
