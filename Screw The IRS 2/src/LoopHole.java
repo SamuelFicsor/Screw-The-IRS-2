@@ -14,8 +14,10 @@ public class LoopHole extends Card
 			// TODO Auto-generated method stub
 			for(Card c: p.getFront())
 				{
-				if(c.getType().equals("Audit"))
-					p.discard(c);
+				if(c.getType().equals("Audit")) {
+					p.discardBottom(c);
+					break;
+					}
 				}
 
 			p.setAudited(false);

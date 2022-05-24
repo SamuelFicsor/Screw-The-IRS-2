@@ -1,3 +1,4 @@
+import java.util.Scanner;
 
 public class Audit extends Card
 	{
@@ -13,15 +14,13 @@ public class Audit extends Card
 			boolean firstAudit = false;
 			int counter = 0;
 			
-			while(!firstAudit)
+			for(Card c : p1.getHand())
 				{
-					Card c = p1.getHand().get(counter);
-					
 					if(c.getType().equals("Audit"))
 						{
 							p2.addFront(c);
 							p1.getFront().remove(counter);
-							firstAudit = true;
+							break;
 						}
 				}
 			
